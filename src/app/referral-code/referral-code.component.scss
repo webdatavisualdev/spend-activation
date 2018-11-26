@@ -1,0 +1,51 @@
+.code-fields {
+    width: 100%;
+    text-align: center;
+
+    input {
+        border: 2px solid #d9d9d9;
+        border-radius: 15px;
+        outline: none;
+        width: 45px;
+        height: 60px;
+        text-align: center;
+        margin: 0 20px;
+        font-size: 2rem;
+        background-color: #ffffff;
+        &:focus {
+            border-bottom: solid 5px #0070f7;
+        }
+    }
+}
+
+.dialog {
+    position: absolute;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    background-color: rgba(0, 0, 0, .3);
+
+    .dialog-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background-color: #ffffff;
+        width: 580px;
+        border-radius: 5px;
+        padding: 40px 15px 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .code-fields {
+        input {
+            margin: 0 10px;
+            width: 30px;
+        }
+    }
+}
