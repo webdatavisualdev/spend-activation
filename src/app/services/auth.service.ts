@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class AuthService {
 
   constructor(
     private http: HttpClient
   ) { }
 
-  activateCard(data: any) {
-    return this.http.post(environment.baseUrl + '/v3/card/activate', data);
+  login(user: any) {
+    return this.http.post(environment.baseUrl + '/v3/user/login', user);
   }
 }

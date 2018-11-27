@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReferralCodeComponent } from './referral-code.component';
+import { ActivateComponent } from './activate.component';
 
-describe('ReferralCodeComponent', () => {
-  let component: ReferralCodeComponent;
-  let fixture: ComponentFixture<ReferralCodeComponent>;
+describe('ActivateComponent', () => {
+  let component: ActivateComponent;
+  let fixture: ComponentFixture<ActivateComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReferralCodeComponent ]
+      declarations: [ ActivateComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReferralCodeComponent);
+    fixture = TestBed.createComponent(ActivateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

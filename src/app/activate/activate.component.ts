@@ -1,18 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-referral-code',
-  templateUrl: './referral-code.component.html',
-  styleUrls: ['./referral-code.component.scss']
+  selector: 'app-activate',
+  templateUrl: './activate.component.html',
+  styleUrls: ['./activate.component.scss']
 })
-export class ReferralCodeComponent implements OnInit {
+export class ActivateComponent implements OnInit {
   cvv = ['', '', ''];
   pin = ['', '', '', ''];
   confirmPin = ['', '', '', ''];
   openDialog = false;
+  openFailedDialog = false;
   openSecondDialog = false;
   step = 0;
-  constructor() { }
+  pinVal = 0;
+  error = [];
+  constructor(
+    private _api: ApiService
+  ) { }
 
   ngOnInit() {
   }
@@ -86,7 +92,14 @@ export class ReferralCodeComponent implements OnInit {
   submit(event) {
     event.preventDefault();
     if (this.step === 0) {
-      this.openDialog = true;
+      this._api.activateCard({cvv: this.getVal()}).subscribe((res: any) => {
+        if (res.success) {
+          this.openDialog = true;
+        } else {
+          this.openFailedDialog = true;
+          this.error = res.error;
+        }
+      });
     } else if (this.step === 1) {
       this.step = 2;
     } else if (this.step === 2) {
@@ -135,5 +148,27 @@ export class ReferralCodeComponent implements OnInit {
 
   close() {
     this.openSecondDialog = false;
+    this.openFailedDialog = false;
+  }
+
+  isValid() {
+    if (this.step === 0) {
+      return this.getVal() && this.getVal().toString().length === 3;
+    } else if (this.step === 1) {
+      return this.getVal() && this.getVal().toString().length === 4;
+    } else if (this.step === 2) {
+      return this.getVal() && this.getVal().toString().length === 4 && this.pinVal === this.getVal();
+    }
+  }
+
+  getVal() {
+    if (this.step === 0) {
+      return parseInt(this.cvv.join().replace(/,/g, ''), 10);
+    } else if (this.step === 1) {
+      this.pinVal = parseInt(this.pin.join().replace(/,/g, ''), 10);
+      return this.pinVal;
+    } else if (this.step === 2) {
+      return parseInt(this.confirmPin.join().replace(/,/g, ''), 10);
+    }
   }
 }

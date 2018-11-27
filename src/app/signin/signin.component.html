@@ -2,13 +2,13 @@
   <img src="assets/logo.png" class="bg-logo" height="100">
   <h1 class="text-white">It's easy to Spend.</h1>
   <div class="form-container mt-100">
-    <form>
+    <form [formGroup]="form">
       <div class="form-group d-flex flex-column align-items-center">
-        <input type="text" placeholder="Username" class="text-center form-input my-20">
-        <input type="password" placeholder="Password" class="text-center form-input my-20">
-        <button class="btn btn-primary my-15">Sign in</button>
-        <a routerLink="/signup" class="link">Create an account</a>
-        <a routerLink="/referral-code" class="link">Referral Code</a>
+        <input type="text" placeholder="Username" formControlName="username" class="text-center form-input my-20">
+        <input type="password" placeholder="Password" formControlName="password" class="text-center form-input my-20">
+        <button class="btn btn-primary my-15" [disabled]="!form.valid" (click)="signin()">Sign in</button>
+        <a routerLink="/" class="link">Create an account</a>
+        <a routerLink="/" class="link">Referral Code</a>
       </div>
     </form>
   </div>
