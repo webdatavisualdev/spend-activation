@@ -16,6 +16,8 @@ export class ActivateComponent implements OnInit {
   step = 0;
   pinVal = 0;
   error = [];
+  reference = '';
+
   constructor(
     private _api: ApiService
   ) { }
@@ -95,15 +97,23 @@ export class ActivateComponent implements OnInit {
       this._api.activateCard({cvv: this.getVal()}).subscribe((res: any) => {
         if (res.success) {
           this.openDialog = true;
+          this.reference = res.data.reference;
         } else {
-          this.openFailedDialog = true;
           this.error = res.error;
+          this.openFailedDialog = true;
         }
       });
     } else if (this.step === 1) {
       this.step = 2;
     } else if (this.step === 2) {
-      this.openSecondDialog = true;
+      this._api.createPin({pin: this.getVal(), reference: this.reference}).subscribe((res: any) => {
+        if (res.success) {
+          this.openSecondDialog = true;
+        } else {
+          this.error = res.error;
+          this.openFailedDialog = true;
+        }
+      });
     }
   }
 

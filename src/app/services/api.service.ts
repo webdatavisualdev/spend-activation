@@ -14,4 +14,8 @@ export class ApiService {
   activateCard(data: any) {
     return this.http.post(environment.baseUrl + '/v3/card/activate', data);
   }
+
+  createPin(data: any) {
+    return this.http.post(environment.baseUrl + '/card/pin/create', data);
+  }
 }
